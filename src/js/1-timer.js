@@ -136,6 +136,8 @@ const hoursElement = document.querySelector("[data-hours]");
 const minutesElement = document.querySelector("[data-minutes]");
 const secondsElement = document.querySelector("[data-seconds]");
 
+startBtn.disabled = true;
+
 let userSelectedDate;
 
 const options = {
@@ -146,6 +148,7 @@ const options = {
   onClose(selectedDates) {
     userSelectedDate = selectedDates[0];
     console.log(selectedDates[0]);
+    stop();
     checkData(userSelectedDate);
   },
 };
@@ -192,9 +195,13 @@ function convertMs(ms) {
 function start() {
   if (isActive) {
     return;
-  }
+  };
 
-  initTimer();
+  const isValidDate = checkData(userSelectedDate);
+
+  if (!isValidDate) {
+    return;
+  }
 
   isActive = true;
 
