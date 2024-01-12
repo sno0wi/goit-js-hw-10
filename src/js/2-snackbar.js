@@ -9,7 +9,7 @@ const radioBtns = document.querySelectorAll('input[name="state"]');
 function submitForm(event) {
     event.preventDefault();
 
-    const delayValue = delayInput.value;
+    const delayValue = Number(delayInput.value);
     
     let selectedStateBtn;
     radioBtns.forEach(radioBtn => {
@@ -21,21 +21,21 @@ function submitForm(event) {
     const promise = new Promise((resolve, reject) => {
         setTimeout(() => {
             if (selectedStateBtn === "fulfilled") {
-                resolve();
+                resolve(delayValue);
             } else {
-                reject();
+                reject(delayValue);
             }
         }, delayValue);
     });
 
     promise
-        .then(() => {
-            izitoast.show({
+        .then((delayValue) => {
+            izitoast.success({
                 message: `Fulfilled promise in ${delayValue}ms`
             });
         })
-        .catch(() => {
-            izitoast.show({
+        .catch((delayValue) => {
+            izitoast.error({
                 message: `Rejected promise in ${delayValue}ms`
             });
         })
