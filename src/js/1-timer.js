@@ -38,18 +38,15 @@ function checkData(userSelectedDate) {
       message: "Please choose a date in the future",
     });
     startBtn.disabled = true;
+    return false;
   } else {
     startBtn.disabled = false;
+    return true;
   }
 }
 
 let isActive = false;
 let intervalId;
-
-function initTimer() {
-  const time = convertMs(0);
-  updateClockface(time);
-}
 
 function convertMs(ms) {
   const second = 1000;
@@ -103,15 +100,15 @@ function stop() {
   startBtn.disabled = false;
 }
 
-function addLeadingZero(value) {
+function formatTime(value) {
   return String(value).padStart(2, "0");
 }
 
 function updateClockface({ days, hours, minutes, seconds }) {
-  daysElement.textContent = addLeadingZero(days);
-  hoursElement.textContent = addLeadingZero(hours);
-  minutesElement.textContent = addLeadingZero(minutes);
-  secondsElement.textContent = addLeadingZero(seconds);
+  daysElement.textContent = formatTime(days);
+  hoursElement.textContent = formatTime(hours);
+  minutesElement.textContent = formatTime(minutes);
+  secondsElement.textContent = formatTime(seconds);
 }
 
 startBtn.addEventListener("click", start);
